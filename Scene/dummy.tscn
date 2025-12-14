@@ -1,0 +1,124 @@
+[gd_scene load_steps=9 format=3 uid="uid://jynwult07flt"]
+
+[ext_resource type="Script" uid="uid://d21vsvuxxxbsq" path="res://Script/Entities/EnemyBehavior.gd" id="1_wy7j5"]
+[ext_resource type="Texture2D" uid="uid://bd44to6ldojcs" path="res://Assets/Dummy.png" id="2_rcqeu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vt2yd"]
+radius = 4.0
+height = 26.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdpsd"]
+size = Vector2(15, 33)
+
+[sub_resource type="Animation" id="Animation_ry2yl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_7aw3l"]
+resource_name = "hurt"
+length = 0.14
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_wy7j5"]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5707964]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4qb3o"]
+_data = {
+&"Death": SubResource("Animation_wy7j5"),
+&"RESET": SubResource("Animation_ry2yl"),
+&"hurt": SubResource("Animation_7aw3l")
+}
+
+[node name="Dummy" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_wy7j5")
+hurtAnim = null
+maxHealth = null
+health = null
+invulnerable = null
+knockbackRed = null
+deathName = null
+redpowderWorth = null
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_rcqeu")
+offset = Vector2(1.095, -13.715)
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("CapsuleShape2D_vt2yd")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0.5, -13.5)
+shape = SubResource("RectangleShape2D_xdpsd")
+debug_color = Color(0.9999998, 0.0074547795, 0.074344926, 0.41960785)
+
+[node name="EnAnim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4qb3o")
+}

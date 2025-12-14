@@ -1,0 +1,113 @@
+[gd_scene load_steps=9 format=3 uid="uid://dvxb6otpkacmq"]
+
+[ext_resource type="Script" uid="uid://dyta74y4hl4gb" path="res://Script/Entities/CharacterController.gd" id="1_a2bo7"]
+[ext_resource type="Texture2D" uid="uid://q0entwamnf1s" path="res://Assets/Hunter Animations-Sheet.png" id="3_ql00b"]
+[ext_resource type="FontFile" uid="uid://sm7ud1i6q0r3" path="res://pixelated.ttf" id="6_83hfb"]
+
+[sub_resource type="Animation" id="Animation_83hfb"]
+resource_name = "Idle1"
+length = 0.6
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_3540i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+
+[sub_resource type="Animation" id="Animation_ban82"]
+resource_name = "Runin"
+length = 0.8
+loop_mode = 1
+step = 0.08
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07692308, 0.15384616, 0.23076925, 0.30769232, 0.3846154, 0.4615385, 0.53846157, 0.61538464, 0.6923077, 0.7692308),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2hfld"]
+_data = {
+&"Idle1": SubResource("Animation_83hfb"),
+&"RESET": SubResource("Animation_3540i"),
+&"Runin": SubResource("Animation_ban82")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_od0h0"]
+radius = 4.5
+height = 24.0
+
+[node name="Hunter" type="CharacterBody2D"]
+z_index = 2
+y_sort_enabled = true
+texture_filter = 1
+script = ExtResource("1_a2bo7")
+
+[node name="Chamber" type="Label" parent="."]
+z_index = 3
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.998
+anchor_right = 0.75000006
+anchor_bottom = 1.2800001
+offset_left = -19.0
+offset_right = 21.0
+offset_bottom = 18.0
+pivot_offset = Vector2(19, 0)
+theme_override_fonts/font = ExtResource("6_83hfb")
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("3_ql00b")
+offset = Vector2(8, -24)
+hframes = 45
+frame = 16
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+libraries = {
+&"": SubResource("AnimationLibrary_2hfld")
+}
+
+[node name="LookDir" type="Node2D" parent="Sprite"]
+position = Vector2(0, -12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -12)
+shape = SubResource("CapsuleShape2D_od0h0")
+
+[node name="Inv" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true

@@ -1,0 +1,143 @@
+[gd_scene load_steps=8 format=3 uid="uid://dato8kum4pggc"]
+
+[ext_resource type="Script" uid="uid://buccfu051cglm" path="res://Script/Secondary.gd" id="1_0oher"]
+[ext_resource type="Texture2D" uid="uid://ciu0d0bclmvt7" path="res://Assets/Saber placeholder.png" id="2_baxsl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_od0h0"]
+size = Vector2(33, 27.5)
+
+[sub_resource type="Animation" id="Animation_xdpsd"]
+resource_name = "Atk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("skin:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_6ii2q"]
+resource_name = "Atk2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("skin:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("skin:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_gql8c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("skin:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("skin:flip_v")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7aw3l"]
+_data = {
+&"Atk": SubResource("Animation_xdpsd"),
+&"Atk2": SubResource("Animation_6ii2q"),
+&"RESET": SubResource("Animation_gql8c")
+}
+
+[node name="SABRE" type="Area2D"]
+z_index = 1
+monitoring = false
+monitorable = false
+script = ExtResource("1_0oher")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(16.5, 0)
+shape = SubResource("RectangleShape2D_od0h0")
+debug_color = Color(1, 1, 0, 0.41960785)
+
+[node name="skin" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(16, -1.9300003)
+scale = Vector2(2.12, 3)
+texture = ExtResource("2_baxsl")
+
+[node name="Anims" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7aw3l")
+}
+
+[connection signal="area_entered" from="." to="." method="AreaEntered"]

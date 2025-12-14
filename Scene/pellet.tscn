@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://qktbav2aihu3"]
+
+[ext_resource type="Texture2D" uid="uid://c574ttsocoo7n" path="res://Assets/Pellet.png" id="1_pk60f"]
+[ext_resource type="Script" uid="uid://c4yaicup25y47" path="res://Script/Weapons/Prod.gd" id="2_o7d5j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pk60f"]
+size = Vector2(26.66667, 6.666666)
+
+[node name="Pellet" type="Sprite2D"]
+scale = Vector2(1, 0.3)
+texture = ExtResource("1_pk60f")
+script = ExtResource("2_o7d5j")
+
+[node name="Hitbox" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-6.6666656, -5.165735e-07)
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("RectangleShape2D_pk60f")
+debug_color = Color(1, 1, 0, 0.41960785)
+
+[connection signal="area_entered" from="Hitbox" to="." method="OnHit"]

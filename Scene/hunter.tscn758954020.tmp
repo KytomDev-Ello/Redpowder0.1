@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvxb6otpkacmq"]
+
+[ext_resource type="Script" uid="uid://dyta74y4hl4gb" path="res://Script/CharacterController.gd" id="1_a2bo7"]
+[ext_resource type="Texture2D" uid="uid://bnelsr2fy2sjs" path="res://Assets/Hunter_BASE.png" id="2_t4nen"]
+[ext_resource type="PackedScene" uid="uid://dato8kum4pggc" path="res://Scene/S A B R E.tscn" id="3_83hfb"]
+[ext_resource type="PackedScene" uid="uid://bvo4ym7cw1o40" path="res://Scene/G U N.tscn" id="4_a2bo7"]
+[ext_resource type="Texture2D" uid="uid://dn2sdde6irkfb" path="res://Assets/Arrow.png" id="5_t4nen"]
+[ext_resource type="FontFile" uid="uid://sm7ud1i6q0r3" path="res://pixelated.ttf" id="6_83hfb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_od0h0"]
+radius = 4.5
+height = 24.0
+
+[node name="Hunter" type="CharacterBody2D"]
+z_index = 2
+y_sort_enabled = true
+texture_filter = 1
+script = ExtResource("1_a2bo7")
+FOV = null
+PTMR = null
+CamSpeed = null
+playerCamYOffset = null
+speed = null
+Dashpower = null
+DashCooldown = null
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("2_t4nen")
+offset = Vector2(0, -15.95)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+
+[node name="LookDir" type="Node2D" parent="Sprite"]
+position = Vector2(0, -12)
+
+[node name="Arrow" type="Node2D" parent="Sprite/LookDir"]
+position = Vector2(15, 0)
+scale = Vector2(1.256883, 1.256883)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite/LookDir/Arrow"]
+scale = Vector2(1.5537047, 1.5537047)
+texture = ExtResource("5_t4nen")
+
+[node name="m1911" parent="Sprite/LookDir" instance=ExtResource("4_a2bo7")]
+
+[node name="SABRE BASE" parent="Sprite/LookDir" instance=ExtResource("3_83hfb")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -12)
+shape = SubResource("CapsuleShape2D_od0h0")
+
+[node name="Inv" type="Node2D" parent="."]
+
+[node name="Chamber" type="Label" parent="."]
+z_index = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.998
+anchor_right = 0.75000006
+anchor_bottom = 1.2800001
+offset_left = -19.0
+offset_right = 21.0
+offset_bottom = 18.0
+pivot_offset = Vector2(19, 0)
+theme_override_fonts/font = ExtResource("6_83hfb")
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true

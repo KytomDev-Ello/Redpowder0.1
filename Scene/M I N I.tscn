@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0l7w023uxk0q"]
+
+[ext_resource type="Texture2D" uid="uid://brg8id32twil5" path="res://Assets/mini.jpeg" id="1_5sni2"]
+[ext_resource type="Script" uid="uid://p7u3qrfybp3u" path="res://Script/Ranged.gd" id="2_acl7a"]
+
+[sub_resource type="Animation" id="Animation_gjdbb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_0fcgr"]
+resource_name = "fire"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-4, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.3190574, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ikln6"]
+_data = {
+&"RESET": SubResource("Animation_gjdbb"),
+&"fire": SubResource("Animation_0fcgr")
+}
+
+[node name="MiniGun" type="Sprite2D" node_paths=PackedStringArray("Anim")]
+scale = Vector2(0.111856826, 0.10762293)
+texture = ExtResource("1_5sni2")
+offset = Vector2(65.035, 2.78)
+script = ExtResource("2_acl7a")
+Anim = NodePath("AnimationPlayer")
+fireTime = 0.1
+reloadTime = 3.0
+capasity = 1000
+chamber = 10
+speed = 800
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ikln6")
+}
+
+[node name="Muzzle" type="Node2D" parent="."]
+position = Vector2(205.62001, -1.1076563e-06)
