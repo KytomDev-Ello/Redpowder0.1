@@ -1,2 +1,4 @@
-# Redpowder0.1
-redpowder
+#Redpowder version  0.05 (I donno how to put items into version sooo)
+hi
+this is the half playable version of the game soooo yeah
+i've only made classes for this one so there is only looking around and movement
